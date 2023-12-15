@@ -1,12 +1,13 @@
 package com.ghostzone.song_service.api.controller;
 
-import com.ghostzone.song_service.domain.model.SongGetByIdResponse;
-import com.ghostzone.song_service.domain.model.SongListenResponse;
-import com.ghostzone.song_service.domain.model.SongRequest;
+import com.ghostzone.song_service.domain.interfaces.app.SongService;
+import com.ghostzone.song_service.domain.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/song")
@@ -26,6 +27,18 @@ public class SongController {
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<SongGetResponse>> searchSong(@RequestParam(name ="search", required = false) String search){
+        List<SongGetResponse> songResponse;
+        if (search==null) {
+            songResponse = songService.getAll();
+        } else{
+            songResponse = songService.search(search);
+        }
+
+        return new ResponseEntity<>(songResponse, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}/file")
     public ResponseEntity<SongListenResponse> listenToSong(@PathVariable("id") long songId){
         SongListenResponse songResponse = songService.listenToSong(songId);
@@ -33,7 +46,7 @@ public class SongController {
     }
 
     @PutMapping("/{id}")
-    public void updateSongCover(@PathVariable("id") long songId) {
-        songService.updateSongCover(songId);
+    public void updateSongCover(@PathVariable("id") long songId, @RequestBody UpdateCoverRequest updateCoverRequest) {
+        songService.updateSongCover(updateCoverRequest);
     }
 }

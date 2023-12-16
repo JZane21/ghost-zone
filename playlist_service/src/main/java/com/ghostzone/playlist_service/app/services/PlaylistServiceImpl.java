@@ -1,0 +1,49 @@
+package com.ghostzone.playlist_service.app.services;
+
+import com.ghostzone.playlist_service.domain.entity.Playlist;
+import com.ghostzone.playlist_service.domain.models.PlaylistRequest;
+import com.ghostzone.playlist_service.domain.models.PlaylistResponse;
+import com.ghostzone.playlist_service.infraestructure.repository.PlaylistRepository;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@Log4j2
+public class PlaylistServiceImpl implements IPlaylistService{
+
+    @Autowired
+    private PlaylistRepository playListRepository;
+    public Playlist createPlaylist(PlaylistRequest playListRequest){
+        log.info("PlaylistService: Creando playlist " + playListRequest.getPlaylistName());
+        Playlist playList= Playlist.builder()
+                .playlistName(playListRequest.getPlaylistName())
+                .userId(playListRequest.getUserId())
+                .songList(playListRequest.getSongList())
+                .cover(playListRequest.getCover())
+                .build();
+        playListRepository.save(playList);
+        log.info("playList creada exitosamente!");
+        return playList;
+
+    }
+
+
+    public List<Playlist> getAllPlaylist(){
+        log.info("PlaylistService: Obteniendo todas las  playlist ");
+
+        return playListRepository.findAll();
+//        List<PlaylistResponse> playlistResponse = new ArrayList<>();
+//
+//        BeanUtils.copyProperties(playlist, playlistResponse);
+//        log.debug("Playlist ServiceImpl: Returning: " + playlistResponse);
+//
+//        return playlistResponse;+
+    }
+
+
+}

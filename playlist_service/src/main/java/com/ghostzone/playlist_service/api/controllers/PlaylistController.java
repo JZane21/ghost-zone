@@ -45,4 +45,11 @@ public class PlaylistController {
 
         return new ResponseEntity<>(playlistResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String>deletePlaylist(@PathVariable long id){
+        log.info("Playlist Controller: Borrando playlist por su ID ");
+        String eliminateResponse = iplaylistService.deletePlaylist(id);
+        return  new ResponseEntity<>(eliminateResponse,HttpStatus.OK);
+    }
 }

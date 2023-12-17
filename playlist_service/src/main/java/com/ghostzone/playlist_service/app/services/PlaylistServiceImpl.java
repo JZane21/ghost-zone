@@ -62,5 +62,11 @@ public class PlaylistServiceImpl implements IPlaylistService{
     }
 
 
+    public String deletePlaylist(long id) {
+        log.info("PlaylistService: Eliminando playlist por su ID ");
+
+        playListRepository.deleteById(id);
+        return "Playlist borrada exitosamente!";
+    }
 
 }

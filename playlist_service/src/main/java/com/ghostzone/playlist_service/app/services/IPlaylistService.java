@@ -11,4 +11,5 @@ public interface IPlaylistService {
 
         List<Playlist> getAllPlaylist();
 
+        List<PlaylistResponse> getPlaylistByName(String playlistName);
 }

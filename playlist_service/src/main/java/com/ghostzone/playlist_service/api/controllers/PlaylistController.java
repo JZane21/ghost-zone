@@ -5,13 +5,15 @@ import com.ghostzone.playlist_service.domain.entity.Playlist;
 import com.ghostzone.playlist_service.app.services.IPlaylistService;
 
 import com.ghostzone.playlist_service.domain.models.PlaylistRequest;
-
 import com.ghostzone.playlist_service.domain.models.PlaylistResponse;
+
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -34,5 +36,13 @@ public class PlaylistController {
         List<Playlist> playlist = iplaylistService.getAllPlaylist();
         log.debug("Playlist Controller: Returning: " + playlist);
         return new ResponseEntity<>(playlist,HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/nombre/{playlistName}")
+    public ResponseEntity<List<PlaylistResponse>> getPlayListByName(@PathVariable String playlistName){
+        log.info("Playlist Controller: Obteniendo playlist por su nombre ");
+        List<PlaylistResponse> playlistResponse= iplaylistService.getPlaylistByName(playlistName);
+
+        return new ResponseEntity<>(playlistResponse, HttpStatus.OK);
     }
 }

@@ -46,4 +46,21 @@ public class PlaylistServiceImpl implements IPlaylistService{
     }
 
 
+    public List<PlaylistResponse> getPlaylistByName(String playlistName){
+        log.info("PlaylistService: Obteniendo playlists por su nombre ");
+
+        List<PlaylistResponse> playlistResponseList = new ArrayList<>();
+        List<Playlist> playlists = playListRepository.findByPlaylistName(playlistName);
+
+        for (Playlist playlist: playlists){
+            PlaylistResponse playlistResponse = new PlaylistResponse();
+            BeanUtils.copyProperties(playlist, playlistResponse);
+            playlistResponseList.add(playlistResponse);
+        }
+
+        return playlistResponseList;
+    }
+
+
+
 }

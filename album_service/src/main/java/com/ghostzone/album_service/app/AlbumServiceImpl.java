@@ -1,9 +1,14 @@
-package com.ghostzone.song_service.app;
+package com.ghostzone.album_service.app;
 
+import com.ghostzone.album_service.domain.interfaces.app.AlbumService;
+import com.ghostzone.album_service.domain.interfaces.infrastructure.AlbumRepository;
+import com.ghostzone.album_service.domain.model.AlbumGetByIdResponse;
+import com.ghostzone.album_service.domain.model.AlbumGetResponse;
+import com.ghostzone.album_service.domain.model.AlbumRequest;
+import com.ghostzone.album_service.domain.model.UpdateCoverRequest;
 import com.ghostzone.song_service.domain.entity.Song;
 import com.ghostzone.song_service.domain.interfaces.app.SongService;
 import com.ghostzone.song_service.domain.interfaces.infrastructure.SongRepository;
-import com.ghostzone.song_service.domain.model.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +19,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Log4j2
-public class SongServiceImpl implements SongService {
+public class AlbumServiceImpl implements AlbumService {
 
     @Autowired
-    private SongRepository songRepository;
+    private AlbumRepository songRepository;
     @Override
-    public long addSong(SongRequest songRequest) {
+    public long addAlbum(AlbumRequest songRequest) {
         log.info("Song Service: Creating Song with id" + songRequest.getSongName());
         Song song = Song.builder()
                 .songName(songRequest.getSongName())
@@ -36,7 +41,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongGetByIdResponse getSongById(long songId) {
+    public AlbumGetByIdResponse getSongById(long songId) {
 
         log.info("Getting Song by Id");
         Song song = songRepository.findById(songId)
@@ -44,14 +49,14 @@ public class SongServiceImpl implements SongService {
                         () -> new SongServiceCustomException("Product Error No existe este error", "404")
                 );
 
-        SongGetByIdResponse songResponse = new SongGetByIdResponse();
+        AlbumGetByIdResponse songResponse = new SongGetByIdResponse();
         BeanUtils.copyProperties(song, songResponse);
 
         return songResponse;
     }
 
     @Override
-    public List<SongGetResponse> getAll() {
+    public List<AlbumGetResponse> getAll() {
 
         log.info("Getting All Songs");
         List<Song> songs = songRepository.findAll();
@@ -65,7 +70,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public List<SongGetResponse> search(String search) {
+    public List<AlbumGetResponse> search(String search) {
         log.info("Searching songs");
         List<Song> songs = songRepository.findAll();
         List<SongGetResponse> songsResponse = songs
@@ -76,20 +81,6 @@ public class SongServiceImpl implements SongService {
                     BeanUtils.copyProperties(song, songResponse);
                     return songResponse;
                 }).collect(Collectors.toList());
-    }
-
-    @Override
-    public SongListenResponse listenToSong(long songId) {
-        log.info("Listening to Song");
-        Song song = songRepository.findById(songId)
-                .orElseThrow(
-                        () -> new SongServiceCustomException("Product Error No existe este error", "404")
-                );
-
-        SongListenResponse songResponse = new SongListenResponse();
-        BeanUtils.copyProperties(song, songResponse);
-
-        return songResponse;
     }
 
     @Override

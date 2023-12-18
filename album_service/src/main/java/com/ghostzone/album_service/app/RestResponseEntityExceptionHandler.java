@@ -1,6 +1,6 @@
 package com.ghostzone.album_service.app;
 
-import com.ghostzone.song_service.domain.model.ErrorResponse;
+import com.ghostzone.album_service.domain.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

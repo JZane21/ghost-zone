@@ -15,5 +15,4 @@ public interface AlbumService {
     List<AlbumGetResponse> getAll();
     List<AlbumGetResponse> search(String search);
 
-    void updateSongCover(UpdateCoverRequest updateCoverRequest);
 }

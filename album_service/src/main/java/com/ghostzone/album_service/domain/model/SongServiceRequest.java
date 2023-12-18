@@ -11,11 +11,11 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlbumRequest {
-    private String albumName;
+public class SongServiceRequest {
+    private String songName;
     private long artistId;
+    private long albumId;
     private String cover;
     private String file;
-    private List<SongRequest> songs;
     private List<String> genre;
 }

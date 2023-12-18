@@ -49,4 +49,9 @@ public class SongController {
     public void updateSongCover(@PathVariable("id") long songId, @RequestBody UpdateCoverRequest updateCoverRequest) {
         songService.updateSongCover(updateCoverRequest);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteSongById(@PathVariable("id") long songId){
+        songService.deleteSongById(songId);
+    }
 }

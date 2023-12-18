@@ -102,4 +102,10 @@ public class SongServiceImpl implements SongService {
         song.setCover(updateCoverRequest.getCover());
         songRepository.save(song);
     }
+
+    @Override
+    public void deleteSongById(long id) {
+        log.info("Deleting Song");
+        songRepository.deleteById(id);
+    }
 }

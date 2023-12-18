@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+//import com.ghostzone.playlist_service.domain.entity.SongRequest;
 @Entity
 @Data
 @AllArgsConstructor
@@ -26,6 +28,7 @@ public class Playlist {
     @Column(name="COVER")
     private String cover;
 
+//    @OneToMany
     @Column(name="SONG_LIST") //TODO: Change to song List
     private String songList;
 

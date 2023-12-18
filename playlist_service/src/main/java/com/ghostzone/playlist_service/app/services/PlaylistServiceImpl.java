@@ -1,9 +1,14 @@
 package com.ghostzone.playlist_service.app.services;
 
 import com.ghostzone.playlist_service.domain.entity.Playlist;
+import com.ghostzone.playlist_service.domain.models.PlaylistNotFoundException;
+
 import com.ghostzone.playlist_service.domain.models.PlaylistRequest;
 import com.ghostzone.playlist_service.domain.models.PlaylistResponse;
+//import com.ghostzone.playlist_service.domain.entity.SongRequest;
+
 import com.ghostzone.playlist_service.infraestructure.repository.PlaylistRepository;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +73,23 @@ public class PlaylistServiceImpl implements IPlaylistService{
         playListRepository.deleteById(id);
         return "Playlist borrada exitosamente!";
     }
+
+
+    /*
+    public Playlist addSong(long id, SongRequest songRequest){
+        log.info("PlaylistService: Añadiendo una cancion a la playlist");
+        Playlist playlist = playListRepository.findById(id).orElseThrow(() -> new PlaylistNotFoundException(id));
+        playlist.getSongList().add(songRequest);
+
+
+        return playlist;
+    }*/
+
+    //public Playlist deleteSong(long idPlaylist,long idSong){
+    //   log.info("PlaylistService: Borrando una cancion de la playlist");
+    //   Playlist playlist = playListRepository.findById(idPlaylist).orElseThrow(() -> new PlaylistNotFoundException(id));
+    //   playlist.getSongList().remove(idSong);
+    // }
+
 
 }

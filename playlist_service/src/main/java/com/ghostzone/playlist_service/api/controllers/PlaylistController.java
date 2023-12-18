@@ -4,6 +4,7 @@ package com.ghostzone.playlist_service.api.controllers;
 import com.ghostzone.playlist_service.domain.entity.Playlist;
 import com.ghostzone.playlist_service.app.services.IPlaylistService;
 
+//import com.ghostzone.playlist_service.domain.entity.SongRequest;
 import com.ghostzone.playlist_service.domain.models.PlaylistRequest;
 import com.ghostzone.playlist_service.domain.models.PlaylistResponse;
 
@@ -52,4 +53,20 @@ public class PlaylistController {
         String eliminateResponse = iplaylistService.deletePlaylist(id);
         return  new ResponseEntity<>(eliminateResponse,HttpStatus.OK);
     }
+
+    /*
+    @PutMapping("/{id}")
+    public ResponseEntity<Playlist>addSongToPlaylist(@PathVariable long id, @RequestBody SongRequest songRequest){
+        log.info("Playlist Controller: Añadiendo cancion a la playlist por su ID ");
+        Playlist newPlaylist = iplaylistService.addSong(id,songRequest);
+        return new ResponseEntity<>(newPlaylist,HttpStatus.OK);
+    }
+     */
+
+//    @DeleteMapping("/{idPlaylist}/{idSong}")
+//    public ResponseEntity<Playlist>deletePlaylist(@PathVariable long idPlaylist, @PathVariable String idSong){
+//        log.info("Playlist Controller: Borrando playlist por su ID ");
+//        Playlist eliminateResponse = iplaylistService.deleteSong(idPlaylist,idSong);
+//        return  new ResponseEntity<>(eliminateResponse,HttpStatus.OK);
+//    }
 }

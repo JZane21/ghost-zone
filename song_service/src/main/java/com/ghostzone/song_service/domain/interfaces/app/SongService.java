@@ -14,7 +14,7 @@ public interface SongService {
 
     SongListenResponse listenToSong(long songId);
 
-    void updateSongCover(UpdateCoverRequest updateCoverRequest);
+    void updateSongCover(UpdateCoverRequest updateCoverRequest, long songId);
 
     void deleteSongById(long id);
 }

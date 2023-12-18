@@ -10,8 +10,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(SongServiceCustomException.class)
-    public ResponseEntity<ErrorResponse> handleProductServiceException(SongServiceCustomException exception) {
+    @ExceptionHandler(AlbumServiceCustomException.class)
+    public ResponseEntity<ErrorResponse> handleProductServiceException(AlbumServiceCustomException exception) {
         return new ResponseEntity<>(new ErrorResponse().builder()
                 .errorMessage(exception.getMessage())
                 .errorCode(exception.getErrorCode())

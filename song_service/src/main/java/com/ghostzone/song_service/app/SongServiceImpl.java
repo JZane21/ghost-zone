@@ -62,6 +62,7 @@ public class SongServiceImpl implements SongService {
                     BeanUtils.copyProperties(song, songResponse);
                     return songResponse;
                 }).collect(Collectors.toList());
+        return songsResponse;
     }
 
     @Override
@@ -76,6 +77,7 @@ public class SongServiceImpl implements SongService {
                     BeanUtils.copyProperties(song, songResponse);
                     return songResponse;
                 }).collect(Collectors.toList());
+        return songsResponse;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void updateSongCover(UpdateCoverRequest updateCoverRequest) {
+    public void updateSongCover(UpdateCoverRequest updateCoverRequest, long songId) {
         log.info("Updating cover");
         Song song = songRepository.findById(songId)
                 .orElseThrow(

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,12 +27,12 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public long addAlbum(AlbumRequest albumRequest) {
-        log.info("Song Service: Creating Song with id" + songRequest.getSongName());
+        log.info("Album Service: Creating Album with id" + albumRequest.getAlbumName());
         Album album = Album.builder()
                 .albumName(albumRequest.getAlbumName())
                 .artistId(albumRequest.getArtistId())
                 .cover(albumRequest.getCover())
-                .songIds(new List<Long>)
+                .songIds(new ArrayList<>())
                 .genre(albumRequest.getGenre())
                 .build();
 
@@ -43,7 +44,7 @@ public class AlbumServiceImpl implements AlbumService {
                 .map(
                 song ->{
                     SongServiceRequest songRequest = SongServiceRequest.builder()
-                            .songName(song.getName())
+                            .songName(song.getSongName())
                             .artistId(albumRequest.getArtistId())
                             .albumId(album.getAlbumId())
                             .cover(albumRequest.getCover())
@@ -53,7 +54,7 @@ public class AlbumServiceImpl implements AlbumService {
                     ResponseEntity<Long> id = songService.addSong(songRequest);
                     return id.getBody();
                 }
-        );
+        ).collect(Collectors.toList());
         log.info("Updating Album");
 
         Album updateAlbum = albumRepository.getById(album.getAlbumId());
@@ -69,7 +70,7 @@ public class AlbumServiceImpl implements AlbumService {
         log.info("Getting Album by Id");
         Album album = albumRepository.findById(albumId)
                 .orElseThrow(
-                        () -> new SongServiceCustomException("Product Error No existe este error", "404")
+                        () -> new AlbumServiceCustomException("Product Error No existe este error", "404")
                 );
 
         AlbumGetByIdResponse albumGetByIdResponse = new AlbumGetByIdResponse();
@@ -82,12 +83,12 @@ public class AlbumServiceImpl implements AlbumService {
     public List<AlbumGetResponse> getAll() {
 
         log.info("Getting All Albums");
-        List<Album> songs = albumRepository.findAll();
-        List<AlbumGetResponse> albumsResponse = songs
+        List<Album> albums = albumRepository.findAll();
+        List<AlbumGetResponse> albumsResponse = albums
                 .stream()
-                .map(song ->{
-                    AlbumGetResponse albumResponse = new SongGetResponse();
-                    BeanUtils.copyProperties(song, albumResponse);
+                .map(album ->{
+                    AlbumGetResponse albumResponse = new AlbumGetResponse();
+                    BeanUtils.copyProperties(album, albumResponse);
                     return albumResponse;
                 }).collect(Collectors.toList());
         return albumsResponse;
@@ -95,26 +96,16 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public List<AlbumGetResponse> search(String search) {
-        log.info("Searching songs");
-        List<Song> songs = albumRepository.findAll();
-        List<SongGetResponse> songsResponse = songs
+        log.info("Searching albums");
+        List<Album> albums = albumRepository.findAll();
+        List<AlbumGetResponse> albumsResponse = albums
                 .stream()
-                .filter(song -> song.getSongName().contains(search))
-                .map(song ->{
-                    SongGetResponse songResponse = new SongGetResponse();
-                    BeanUtils.copyProperties(song, songResponse);
-                    return songResponse;
+                .filter(album -> album.getAlbumName().contains(search))
+                .map(album ->{
+                    AlbumGetResponse albumResponse = new AlbumGetResponse();
+                    BeanUtils.copyProperties(album, albumResponse);
+                    return albumResponse;
                 }).collect(Collectors.toList());
-    }
-
-    @Override
-    public void updateSongCover(UpdateCoverRequest updateCoverRequest) {
-        log.info("Updating cover");
-        Song song = albumRepository.findById(songId)
-                .orElseThrow(
-                        () -> new SongServiceCustomException("Product Error No existe este error", "404")
-                );
-        song.setCover(updateCoverRequest.getCover());
-        albumRepository.save(song);
+        return albumsResponse;
     }
 }

@@ -1,5 +1,6 @@
 package com.ghostzone.album_service.app;
 
+import com.ghostzone.album_service.domain.entity.Album;
 import com.ghostzone.album_service.domain.interfaces.app.AlbumService;
 import com.ghostzone.album_service.domain.interfaces.infrastructure.AlbumRepository;
 import com.ghostzone.album_service.domain.model.AlbumGetByIdResponse;
@@ -22,29 +23,28 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements AlbumService {
 
     @Autowired
-    private AlbumRepository songRepository;
+    private AlbumRepository albumRepository;
     @Override
-    public long addAlbum(AlbumRequest songRequest) {
+    public long addAlbum(AlbumRequest albumRequest) {
         log.info("Song Service: Creating Song with id" + songRequest.getSongName());
-        Song song = Song.builder()
-                .songName(songRequest.getSongName())
-                .artistId(songRequest.getArtistId())
-                .albumId(songRequest.getAlbumId())
-                .cover(songRequest.getCover())
-                .genre(songRequest.getGenre())
-                .file(songRequest.getFile())
+        Album song = Album.builder()
+                .songName(albumRequest.getAlbumName())
+                .artistId(albumRequest.getArtistId())
+                .cover(albumRequest.getCover())
+                .songIds(new List<Long>)
+                .genre(albumRequest.getGenre())
                 .build();
 
-        songRepository.save(song);
+        albumRepository.save(song);
         log.info("Song Created");
         return song.getSongId();
     }
 
     @Override
-    public AlbumGetByIdResponse getSongById(long songId) {
+    public AlbumGetByIdResponse getAlbumById(long songId) {
 
-        log.info("Getting Song by Id");
-        Song song = songRepository.findById(songId)
+        log.info("Getting Album by Id");
+        Album song = albumRepository.findById(songId)
                 .orElseThrow(
                         () -> new SongServiceCustomException("Product Error No existe este error", "404")
                 );
@@ -59,7 +59,7 @@ public class AlbumServiceImpl implements AlbumService {
     public List<AlbumGetResponse> getAll() {
 
         log.info("Getting All Songs");
-        List<Song> songs = songRepository.findAll();
+        List<Song> songs = albumRepository.findAll();
         List<SongGetResponse> songsResponse = songs
                 .stream()
                 .map(song ->{
@@ -72,7 +72,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<AlbumGetResponse> search(String search) {
         log.info("Searching songs");
-        List<Song> songs = songRepository.findAll();
+        List<Song> songs = albumRepository.findAll();
         List<SongGetResponse> songsResponse = songs
                 .stream()
                 .filter(song -> song.getSongName().contains(search))
@@ -86,11 +86,11 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public void updateSongCover(UpdateCoverRequest updateCoverRequest) {
         log.info("Updating cover");
-        Song song = songRepository.findById(songId)
+        Song song = albumRepository.findById(songId)
                 .orElseThrow(
                         () -> new SongServiceCustomException("Product Error No existe este error", "404")
                 );
         song.setCover(updateCoverRequest.getCover());
-        songRepository.save(song);
+        albumRepository.save(song);
     }
 }

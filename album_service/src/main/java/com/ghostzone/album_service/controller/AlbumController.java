@@ -25,13 +25,13 @@ public class AlbumController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlbumGetByIdResponse> getSongById(@PathVariable("id") long songId){
-        AlbumGetByIdResponse songResponse = albumService.getSongById(songId);
+    public ResponseEntity<AlbumGetByIdResponse> getAlbumById(@PathVariable("id") long songId){
+        AlbumGetByIdResponse songResponse = albumService.getAlbumById(songId);
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<AlbumGetResponse>> searchSong(@RequestParam(name ="search", required = false) String search){
+    public ResponseEntity<List<AlbumGetResponse>> search(@RequestParam(name ="search", required = false) String search){
         List<AlbumGetResponse> songResponse;
         if (search==null) {
             songResponse = albumService.getAll();

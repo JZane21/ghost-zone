@@ -10,7 +10,7 @@ import java.util.List;
 public interface AlbumService {
     long addAlbum(AlbumRequest productRequest);
 
-    AlbumGetByIdResponse getSongById(long productId);
+    AlbumGetByIdResponse getAlbumById(long productId);
 
     List<AlbumGetResponse> getAll();
     List<AlbumGetResponse> search(String search);

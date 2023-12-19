@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "SONG-SERVICE/product")
+@FeignClient(name = "SONG-SERVICE/song")
 public interface SongService {
     @PostMapping("/") // localhost:8080/id/quantity PUT
     public ResponseEntity<Long> addSong(@RequestBody SongServiceRequest songRequest);

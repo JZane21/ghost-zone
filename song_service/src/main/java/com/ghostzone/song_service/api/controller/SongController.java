@@ -39,6 +39,13 @@ public class SongController {
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/internal")
+    public ResponseEntity<List<SongGetByIdResponse>> getAllSongs(){
+        List<SongGetByIdResponse> songResponse = songService.getAllInternal();
+
+        return new ResponseEntity<>(songResponse, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}/file")
     public ResponseEntity<SongListenResponse> listenToSong(@PathVariable("id") long songId){
         SongListenResponse songResponse = songService.listenToSong(songId);

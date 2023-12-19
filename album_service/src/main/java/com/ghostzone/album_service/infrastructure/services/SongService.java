@@ -3,6 +3,8 @@ package com.ghostzone.album_service.infrastructure.services;
 import com.ghostzone.album_service.domain.model.SongServiceRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,4 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface SongService {
     @PostMapping("/") // localhost:8080/id/quantity PUT
     public ResponseEntity<Long> addSong(@RequestBody SongServiceRequest songRequest);
+
+    @DeleteMapping("/{id}")
+    public void deleteSongById(@PathVariable("id") long songId);
 }

@@ -18,11 +18,11 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long albumId;
-    @Column(name="SONG_NAME")
+    @Column(name="ALBUM_NAME")
     private String albumName;
     @Column(name="ARTIST_ID")
     private long artistId;
-    @Column(name="ALBUM_ID")
+    @Column(name="SONG_IDS")
     private List<Long> songIds;
     @Column(name="COVER")
     private String cover;

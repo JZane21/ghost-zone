@@ -25,8 +25,8 @@ public class AlbumController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlbumGetByIdResponse> getAlbumById(@PathVariable("id") long songId){
-        AlbumGetByIdResponse songResponse = albumService.getAlbumById(songId);
+    public ResponseEntity<AlbumGetByIdResponse> getAlbumById(@PathVariable("id") long albumId){
+        AlbumGetByIdResponse songResponse = albumService.getAlbumById(albumId);
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
     }
 
@@ -40,5 +40,10 @@ public class AlbumController {
         }
 
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAlbum(@PathVariable("id") long albumId){
+        albumService.deleteAlbum(albumId);
     }
 }

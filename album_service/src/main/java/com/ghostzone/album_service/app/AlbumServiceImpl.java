@@ -108,4 +108,19 @@ public class AlbumServiceImpl implements AlbumService {
                 }).collect(Collectors.toList());
         return albumsResponse;
     }
+
+    @Override
+    public void deleteAlbum(long albumId) {
+        log.info("Deleting album with Id "+albumId);
+        Album album = albumRepository.findById(albumId)
+                .orElseThrow(
+                        () -> new AlbumServiceCustomException("Product Error No existe este error", "404")
+                );
+        album.getSongIds()
+                .stream()
+                .forEach(songId ->
+                        songService.deleteSongById(songId)
+                );
+        albumRepository.deleteById(albumId);
+    }
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SongGetResponse {
+    private long songId;
     private String songName;
     private long artistId;
     private String cover;

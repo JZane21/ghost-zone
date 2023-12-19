@@ -15,7 +15,7 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Long> addSong(@RequestBody SongRequest songRequest){
         long songId = songService.addSong(songRequest);
         return new ResponseEntity<>(songId, HttpStatus.CREATED);

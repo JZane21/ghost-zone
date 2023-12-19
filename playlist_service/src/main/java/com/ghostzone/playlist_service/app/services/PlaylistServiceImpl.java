@@ -75,7 +75,7 @@ public class PlaylistServiceImpl implements IPlaylistService{
     }
 
 
-    /*
+
     public Playlist addSong(long id, SongRequest songRequest){
         log.info("PlaylistService: Añadiendo una cancion a la playlist");
         Playlist playlist = playListRepository.findById(id).orElseThrow(() -> new PlaylistNotFoundException(id));
@@ -83,7 +83,7 @@ public class PlaylistServiceImpl implements IPlaylistService{
 
 
         return playlist;
-    }*/
+    }
 
     //public Playlist deleteSong(long idPlaylist,long idSong){
     //   log.info("PlaylistService: Borrando una cancion de la playlist");

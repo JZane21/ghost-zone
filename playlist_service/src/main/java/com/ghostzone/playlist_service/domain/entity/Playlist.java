@@ -30,6 +30,6 @@ public class Playlist {
 
 //    @OneToMany
     @Column(name="SONG_LIST") //TODO: Change to song List
-    private String songList;
+    private List<Long> songIds;
 
 }

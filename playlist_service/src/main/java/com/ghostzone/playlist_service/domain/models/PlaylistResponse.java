@@ -2,6 +2,8 @@ package com.ghostzone.playlist_service.domain.models;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -11,5 +13,5 @@ public class PlaylistResponse {
     private String playlistName;
     private String cover;
     private long userId; //TODO: Change to user Object
-    private String songList; // TODO: Change to song Lists
+    private List<Long> songList; // TODO: Change to song Lists
 }

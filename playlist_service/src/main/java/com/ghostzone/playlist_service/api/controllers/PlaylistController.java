@@ -54,19 +54,19 @@ public class PlaylistController {
         return  new ResponseEntity<>(eliminateResponse,HttpStatus.OK);
     }
 
-    /*
-    @PutMapping("/{id}")
-    public ResponseEntity<Playlist>addSongToPlaylist(@PathVariable long id, @RequestBody SongRequest songRequest){
+
+    @PutMapping("/{playlistId}/{songId}")
+    public ResponseEntity<Playlist>addSongToPlaylist(@PathVariable long playlistId, @PathVariable long songId){
         log.info("Playlist Controller: Añadiendo cancion a la playlist por su ID ");
-        Playlist newPlaylist = iplaylistService.addSong(id,songRequest);
+        Playlist newPlaylist = iplaylistService.addSong(playlistId,songId);
         return new ResponseEntity<>(newPlaylist,HttpStatus.OK);
     }
-     */
 
-//    @DeleteMapping("/{idPlaylist}/{idSong}")
-//    public ResponseEntity<Playlist>deletePlaylist(@PathVariable long idPlaylist, @PathVariable String idSong){
-//        log.info("Playlist Controller: Borrando playlist por su ID ");
-//        Playlist eliminateResponse = iplaylistService.deleteSong(idPlaylist,idSong);
-//        return  new ResponseEntity<>(eliminateResponse,HttpStatus.OK);
-//    }
+
+    @DeleteMapping("/{idPlaylist}/{idSong}")
+    public ResponseEntity<Playlist>deletePlaylist(@PathVariable long idPlaylist, @PathVariable long idSong){
+        log.info("Playlist Controller: Borrando playlist por su ID ");
+        Playlist eliminateResponse = iplaylistService.deleteSong(idPlaylist,idSong);
+        return  new ResponseEntity<>(eliminateResponse,HttpStatus.OK);
+    }
 }

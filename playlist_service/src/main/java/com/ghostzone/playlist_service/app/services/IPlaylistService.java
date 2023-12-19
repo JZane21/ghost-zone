@@ -16,7 +16,7 @@ public interface IPlaylistService {
 
         String deletePlaylist(long id);
 
-        //Playlist addSong(long id,SongRequest songRequest);
+        Playlist addSong(long playlistId,long songId);
 
-        //Playlist deleteSong(long idPlaylist,long idSong);
+        Playlist deleteSong(long playlistId,long songId);
 }

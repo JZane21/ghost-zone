@@ -13,5 +13,5 @@ public class PlaylistResponse {
     private String playlistName;
     private String cover;
     private long userId; //TODO: Change to user Object
-    private List<Long> songList; // TODO: Change to song Lists
+    private List<Long> songIds; // TODO: Change to song Lists
 }

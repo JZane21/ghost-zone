@@ -1,5 +1,6 @@
 package com.ghostzone.playlist_service.app.services;
 
+import com.ghostzone.playlist_service.app.services.client.SongService;
 import com.ghostzone.playlist_service.domain.entity.Playlist;
 import com.ghostzone.playlist_service.domain.models.PlaylistNotFoundException;
 
@@ -7,6 +8,7 @@ import com.ghostzone.playlist_service.domain.models.PlaylistRequest;
 import com.ghostzone.playlist_service.domain.models.PlaylistResponse;
 //import com.ghostzone.playlist_service.domain.entity.SongRequest;
 
+import com.ghostzone.playlist_service.domain.models.SongGetByIdResponse;
 import com.ghostzone.playlist_service.infraestructure.repository.PlaylistRepository;
 
 import lombok.extern.log4j.Log4j2;
@@ -23,12 +25,16 @@ public class PlaylistServiceImpl implements IPlaylistService{
 
     @Autowired
     private PlaylistRepository playListRepository;
+
+    @Autowired
+    private SongService songService;
+
     public Playlist createPlaylist(PlaylistRequest playListRequest){
         log.info("PlaylistService: Creando playlist " + playListRequest.getPlaylistName());
         Playlist playList= Playlist.builder()
                 .playlistName(playListRequest.getPlaylistName())
                 .userId(playListRequest.getUserId())
-                .songList(playListRequest.getSongList())
+                .songIds(playListRequest.getSongIds())
                 .cover(playListRequest.getCover())
                 .build();
         playListRepository.save(playList);
@@ -76,20 +82,27 @@ public class PlaylistServiceImpl implements IPlaylistService{
 
 
 
-    public Playlist addSong(long id, SongRequest songRequest){
+    public Playlist addSong(long playListId, long songId){
         log.info("PlaylistService: Añadiendo una cancion a la playlist");
-        Playlist playlist = playListRepository.findById(id).orElseThrow(() -> new PlaylistNotFoundException(id));
-        playlist.getSongList().add(songRequest);
+        Playlist playlist = playListRepository.findById(playListId).orElseThrow(() -> new PlaylistNotFoundException(playListId));
+        List<Long> newSongList = playlist.getSongIds();
 
+        SongGetByIdResponse song = songService.getSongById(songId);
+        newSongList.add(song.getSongId());
+        playlist.setSongIds(newSongList);
 
-        return playlist;
+        // Guardar la entidad actualizada en la base de datos
+        return playListRepository.save(playlist);
     }
 
-    //public Playlist deleteSong(long idPlaylist,long idSong){
-    //   log.info("PlaylistService: Borrando una cancion de la playlist");
-    //   Playlist playlist = playListRepository.findById(idPlaylist).orElseThrow(() -> new PlaylistNotFoundException(id));
-    //   playlist.getSongList().remove(idSong);
-    // }
+    public Playlist deleteSong(long playListId,long songId){
+       log.info("PlaylistService: Borrando una cancion de la playlist");
+       Playlist playlist = playListRepository.findById(playListId).orElseThrow(() -> new PlaylistNotFoundException(playListId));
+
+
+       playlist.getSongIds().remove(songId);
+       return playlist;
+     }
 
 
 }

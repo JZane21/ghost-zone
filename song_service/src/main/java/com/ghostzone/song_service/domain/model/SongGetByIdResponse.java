@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SongGetByIdResponse {
+    private long songId;
     private String songName;
     private long artistId;
     private long albumId;

@@ -15,7 +15,6 @@ public class AlbumRequest {
     private String albumName;
     private long artistId;
     private String cover;
-    private String file;
     private List<SongRequest> songs;
     private List<String> genre;
 }

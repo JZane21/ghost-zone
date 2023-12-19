@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AlbumGetByIdResponse {
-    private String songName;
-    private long artistId;
     private long albumId;
+    private String albumName;
+    private long artistId;
+    private List<Long> songIds;
     private String cover;
-    private String file;
     private List<String> genre;
 }

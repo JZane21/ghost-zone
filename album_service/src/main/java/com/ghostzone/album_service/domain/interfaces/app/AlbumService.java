@@ -8,12 +8,12 @@ import com.ghostzone.album_service.domain.model.UpdateCoverRequest;
 import java.util.List;
 
 public interface AlbumService {
-    long addAlbum(AlbumRequest productRequest);
+    long addAlbum(AlbumRequest albumRequest);
 
-    AlbumGetByIdResponse getAlbumById(long productId);
+    AlbumGetByIdResponse getAlbumById(long albumId);
 
     List<AlbumGetResponse> getAll();
     List<AlbumGetResponse> search(String search);
 
-    void updateSongCover(UpdateCoverRequest updateCoverRequest);
+    void deleteAlbum(long albumId);
 }

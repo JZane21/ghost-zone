@@ -66,6 +66,20 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    public List<SongGetByIdResponse> getAllInternal() {
+        log.info("Getting All Songs");
+        List<Song> songs = songRepository.findAll();
+        List<SongGetByIdResponse> songsResponse = songs
+                .stream()
+                .map(song ->{
+                    SongGetByIdResponse songResponse = new SongGetByIdResponse();
+                    BeanUtils.copyProperties(song, songResponse);
+                    return songResponse;
+                }).collect(Collectors.toList());
+        return songsResponse;
+    }
+
+    @Override
     public List<SongGetResponse> search(String search) {
         log.info("Searching songs");
         List<Song> songs = songRepository.findAll();

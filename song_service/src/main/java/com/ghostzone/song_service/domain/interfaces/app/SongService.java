@@ -10,6 +10,8 @@ public interface SongService {
     SongGetByIdResponse getSongById(long productId);
 
     List<SongGetResponse> getAll();
+
+    List<SongGetByIdResponse> getAllInternal();
     List<SongGetResponse> search(String search);
 
     SongListenResponse listenToSong(long songId);

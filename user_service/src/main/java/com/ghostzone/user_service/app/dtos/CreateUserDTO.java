@@ -7,20 +7,16 @@ import lombok.Getter;
 @Getter
 @Data
 public class CreateUserDTO {
-    @NotNull()
-    @NotEmpty()
+    @NotNull(message = "El username no deberia ser nulo")
+    @NotEmpty(message = "El username no deberia estar vacio")
     private String username;
-    @NotNull()
-    @NotEmpty()
+    @NotNull(message = "La contraseña no deberia ser nula")
+    @NotEmpty(message = "La contraseña no deberia estar vacia")
     private String password;
-    @NotNull()
-    @NotEmpty()
+    @NotNull(message = "El email no deberia ser nulo")
+    @NotEmpty(message = "El email no deberia estar vacio")
     private String email;
-    @NotEmpty()
-    private boolean admin;
-    @NotEmpty()
-    private boolean artist;
-    @NotNull()
-    @NotEmpty()
+    @NotNull(message = "La descripción no debería ser nula")
+    @NotEmpty(message = "La descripción no debería estar vacia")
     private String description;
 }

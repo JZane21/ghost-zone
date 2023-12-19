@@ -14,7 +14,7 @@ import java.util.List;
 public class AlbumGetByIdResponse {
     private long albumId;
     private String albumName;
-    private long artistId;
+    private long userId;
     private List<Long> songIds;
     private String cover;
     private List<String> genre;

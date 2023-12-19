@@ -9,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 @Component
-@Log4j2
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     @Autowired
@@ -32,14 +31,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 }
 
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if (authHeader != null && authHeader.startsWith("Bearer")) {
-                    authHeader = authHeader.substring(7);
-                }
                 try {
-                    log.info("correct access...!");
                     jwtUtil.validateToken(authHeader);
                 } catch (Exception e) {
-                    log.info("invalid access...!");
                     throw new RuntimeException("un authorized access to application");
                 }
             }

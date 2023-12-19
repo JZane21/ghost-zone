@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> getToken(@RequestBody UserLoginDTO userLoginDto){
-        if(this.authenticatorUser.isAuthenticated(
+        if(!this.authenticatorUser.isAuthenticated(
                 userLoginDto.getUsername(), userLoginDto.getPassword()
         )){
             return new ResponseEntity<>("Invalid user access",HttpStatus.BAD_REQUEST);

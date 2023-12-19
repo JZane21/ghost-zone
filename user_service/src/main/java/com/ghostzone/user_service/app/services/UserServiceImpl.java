@@ -4,11 +4,14 @@ import com.ghostzone.user_service.app.dtos.CreateUserDTO;
 import com.ghostzone.user_service.app.dtos.UpdateUserDTO;
 import com.ghostzone.user_service.app.dtos.UserDTO;
 import com.ghostzone.user_service.app.exception.UserServiceCustomException;
-import com.ghostzone.user_service.domain.interfaces.UserService;
+import com.ghostzone.user_service.domain.interfaces.*;
 import com.ghostzone.user_service.domain.entity.UserEntity;
+import com.ghostzone.user_service.infrastructure.client.AlbumService;
+import com.ghostzone.user_service.infrastructure.client.SongService;
 import com.ghostzone.user_service.infrastructure.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +21,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private SongService songService;
+    @Autowired
+    private AlbumService albumService;
+
     private final String announcement = "User Service:";
 
     @Override
@@ -33,8 +41,6 @@ public class UserServiceImpl implements UserService {
                 .username(newUserDTO.getUsername())
                 .password(newUserDTO.getPassword())
                 .email(newUserDTO.getEmail())
-                .admin(newUserDTO.isAdmin())
-                .artist(newUserDTO.isArtist())
                 .description(newUserDTO.getDescription())
                 .build();
         userRepository.save(userEntity);
@@ -43,39 +49,37 @@ public class UserServiceImpl implements UserService {
         return UserDTO.builder()
                 .username(userEntity.getUsername())
                 .email(userEntity.getEmail())
-                .admin(userEntity.isAdmin())
-                .artist(userEntity.isArtist())
                 .description(userEntity.getDescription())
                 .build();
     }
 
     @Override
-    public UserDTO getUserByEmail(String email) {
-        log.info(announcement + "Getting user with email " + email);
-        UserEntity userEntity = userRepository.findByEmail(email);
+    public UserDTO getUserById(Long id) {
+        log.info(announcement + "Getting user with id " + id);
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+                () -> new UserServiceCustomException("User Error: Usuario no encontrado", "404")
+        );
         log.info("User gotten");
 
         return UserDTO.builder()
+                .id(userEntity.getId())
                 .username(userEntity.getUsername())
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
-                .admin(userEntity.isAdmin())
-                .artist(userEntity.isArtist())
                 .description(userEntity.getDescription())
                 .build();
     }
 
     @Override
-    public UserDTO updateInfoUserByEmail(String email, UpdateUserDTO updateUserDTO) {
-        log.info(announcement + "Updating user with email " + email);
-        UserEntity userEntity = userRepository.findByEmail(email);
+    public UserDTO updateInfoUserById(Long id, UpdateUserDTO updateUserDTO) {
+        log.info(announcement + "Updating user with id " + id);
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+                () -> new UserServiceCustomException("User Error: Usuario no encontrado", "404")
+        );
         userEntity.setUsername(
                 updateUserDTO.getUsername() != null ? updateUserDTO.getUsername()
                         : userEntity.getUsername()
         );
-        userEntity.setArtist(
-                userEntity.isArtist() || updateUserDTO.isArtist());
-        userEntity.setAdmin(userEntity.isAdmin() || updateUserDTO.isAdmin());
         userEntity.setDescription(
                 updateUserDTO.getDescription() != null ? updateUserDTO.getDescription()
                         : userEntity.getDescription()
@@ -89,17 +93,47 @@ public class UserServiceImpl implements UserService {
                 .username(userEntity.getUsername())
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
-                .admin(userEntity.isAdmin())
-                .artist(userEntity.isArtist())
                 .description(userEntity.getDescription())
                 .build();
     }
 
     @Override
-    public void deleteUserByEmail(String email) {
-        log.info(announcement + "Deleting user with email " + email);
-        UserEntity userEntity = userRepository.findByEmail(email);
+    public void deleteUserById(Long id) {
+        log.info(announcement + "Deleting user with id " + id);
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(
+                () -> new UserServiceCustomException("User Error: Usuario no encontrado", "404")
+        );
         userRepository.delete(userEntity);
         log.info("User Deleted");
+    }
+
+    @Override
+    public ResponseEntity<SongGetByIdResponse> getMySongById(long id) {
+        return this.songService.getSongById(id);
+    }
+
+    @Override
+    public void deleteMySongById(long id) {
+        this.songService.deleteSongById(id);
+    }
+
+    @Override
+    public ResponseEntity<Long> addMyNewSong(SongRequest songRequest) {
+        return this.songService.addSong(songRequest);
+    }
+
+    @Override
+    public ResponseEntity<AlbumGetByIdResponse> getMyAlbumById(long id) {
+        return this.albumService.getAlbumById(id);
+    }
+
+    @Override
+    public void deleteAlbumById(long id) {
+        this.albumService.deleteAlbum(id);
+    }
+
+    @Override
+    public ResponseEntity<Long> addNewAlbum(AlbumRequest albumRequest) {
+        return this.albumService.addAlbum(albumRequest);
     }
 }

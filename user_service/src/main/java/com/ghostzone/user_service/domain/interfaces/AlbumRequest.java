@@ -1,6 +1,5 @@
-package com.ghostzone.album_service.domain.model;
+package com.ghostzone.user_service.domain.interfaces;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class AlbumRequest {
     @NotNull(message = "El nombre no puede ser nulo")
-    @NotEmpty(message = "El nombre no puede estar vacio")
+    @NotEmpty(message = "El nombre no puede estas vacio")
     private String albumName;
     @NotNull(message = "El id no puede ser nulo")
     @NotEmpty(message = "El id no puede estar vacio")
@@ -24,10 +23,11 @@ public class AlbumRequest {
     @NotNull(message = "La cubierta no puede ser nulo")
     @NotEmpty(message = "La cubierta no puede estar vacio")
     private String cover;
-    @NotNull(message = "La lista de canciones no pueden ser nula")
-    @NotEmpty(message = "La lista de canciones no puede estar vacia")
+    @NotNull(message = "La lista de canciones no pueden ser nulos")
+    @NotEmpty(message = "La lista de canciones no pueden estar vacios")
     private List<SongRequest> songs;
-    @NotNull(message = "La lista de generos no pueden ser nulos")
-    @NotEmpty(message = "La lista de generos no pueden estar vacios")
+    @NotNull(message = "Los generos no pueden ser nulo")
+    @NotEmpty(message = "Los generos no pueden estar vacios")
     private List<String> genre;
 }
+

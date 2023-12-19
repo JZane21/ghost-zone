@@ -21,8 +21,8 @@ public class Song {
     private long songId;
     @Column(name="SONG_NAME")
     private String songName;
-    @Column(name="ARTIST_ID")
-    private long artistId;
+    @Column(name="USER_ID")
+    private long userId;
     @Column(name="ALBUM_ID")
     private long albumId;
     @Column(name="COVER")

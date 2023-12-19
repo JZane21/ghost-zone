@@ -31,12 +31,11 @@ public class AlbumServiceImpl implements AlbumService {
         log.info("Album Service: Creating Album with id" + albumRequest.getAlbumName());
         Album album = Album.builder()
                 .albumName(albumRequest.getAlbumName())
-                .artistId(albumRequest.getArtistId())
+                .userId(albumRequest.getUserId())
                 .cover(albumRequest.getCover())
                 .songIds(new ArrayList<>())
                 .genre(albumRequest.getGenre())
                 .build();
-
         albumRepository.save(album);
         log.info("Album Created");
         log.info("Posting Songs");
@@ -46,7 +45,7 @@ public class AlbumServiceImpl implements AlbumService {
                 song ->{
                     SongServiceRequest songRequest = SongServiceRequest.builder()
                             .songName(song.getSongName())
-                            .artistId(albumRequest.getArtistId())
+                            .userId (albumRequest.getUserId())
                             .albumId(album.getAlbumId())
                             .cover(albumRequest.getCover())
                             .file(song.getFile())

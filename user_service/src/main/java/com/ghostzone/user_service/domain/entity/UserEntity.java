@@ -26,12 +26,6 @@ public class UserEntity{
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "ADMIN")
-    private boolean admin;
-
-    @Column(name = "ARTIST")
-    private boolean artist;
-
     @Column(name = "DESCRIPTION")
     private String description;
 }

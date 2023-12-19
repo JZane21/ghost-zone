@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class SongGetResponse {
     private long songId;
     private String songName;
-    private long artistId;
+    private long userId;
     private String cover;
 }

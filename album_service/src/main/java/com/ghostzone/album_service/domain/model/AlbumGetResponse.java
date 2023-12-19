@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AlbumGetResponse {
     private String albumName;
-    private long artistId;
+    private long userId;
     private String cover;
 }

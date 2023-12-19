@@ -15,7 +15,7 @@ import java.util.List;
 public class SongGetByIdResponse {
     private long songId;
     private String songName;
-    private long artistId;
+    private long userId;
     private long albumId;
     private String cover;
     private String file;

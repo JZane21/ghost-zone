@@ -20,8 +20,8 @@ public class Album {
     private long albumId;
     @Column(name="ALBUM_NAME")
     private String albumName;
-    @Column(name="ARTIST_ID")
-    private long artistId;
+    @Column(name="USER_ID")
+    private long userId;
     @Column(name="SONG_IDS")
     private List<Long> songIds;
     @Column(name="COVER")

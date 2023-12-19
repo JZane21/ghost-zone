@@ -21,7 +21,7 @@ public class AuthenticatorUser {
                                     password
                             )
                     );
-            return !authenticate.isAuthenticated();
+            return authenticate.isAuthenticated();
         }catch (Exception e){
             throw new UserServiceCustomException("Access Denided! Bad Request","401");
         }

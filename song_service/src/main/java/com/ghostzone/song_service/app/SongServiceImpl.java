@@ -23,7 +23,7 @@ public class SongServiceImpl implements SongService {
         log.info("Song Service: Creating Song with id" + songRequest.getSongName());
         Song song = Song.builder()
                 .songName(songRequest.getSongName())
-                .artistId(songRequest.getArtistId())
+                .userId(songRequest.getUserId())
                 .albumId(songRequest.getAlbumId())
                 .cover(songRequest.getCover())
                 .genre(songRequest.getGenre())

@@ -1,4 +1,4 @@
-package com.ghostzone.song_service.domain.model;
+package com.ghostzone.user_service.domain.interfaces;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,11 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SongListenResponse {
-    private long songId;
-    private String songName;
-    private long userId;
+public class AlbumGetByIdResponse {
     private long albumId;
+    private String albumName;
+    private long userId;
+    private List<Long> songIds;
     private String cover;
-    private String file;
+    private List<String> genre;
 }

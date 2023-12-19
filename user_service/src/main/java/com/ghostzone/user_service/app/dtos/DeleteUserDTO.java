@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @Data
 public class DeleteUserDTO {
-    @NotNull()
-    @NotEmpty()
+    @NotNull(message = "La contraseña no debería ser nula")
+    @NotEmpty(message = "La contraseña no debería estar vacía")
     private String password;
 }

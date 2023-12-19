@@ -9,15 +9,13 @@ import lombok.Getter;
 @Getter
 @Data
 public class UpdateUserDTO {
+    @NotNull(message = "El username no deberia ser nulo")
+    @NotEmpty(message = "El username no deberia estar vacio")
     private String username;
+    @NotNull(message = "La contraseña no deberia ser nula")
+    @NotEmpty(message = "La contraseña no deberia estar vacia")
     private String password;
-    @NotBlank()
-    @NotNull()
-    @NotEmpty()
-    private boolean admin;
-    @NotBlank()
-    @NotNull()
-    @NotEmpty()
-    private boolean artist;
+    @NotNull(message = "La descripción no debería ser nula")
+    @NotEmpty(message = "La descripción no debería estar vacia")
     private String description;
 }

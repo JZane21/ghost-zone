@@ -1,4 +1,4 @@
-package com.ghostzone.album_service.domain.model;
+package com.ghostzone.user_service.domain.interfaces;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SongServiceRequest {
+public class SongRequest {
     @NotNull(message = "El nombre de la canción no puede ser nulo")
     @NotEmpty(message = "El nombre de la canción no puede estar vacío")
     private String songName;

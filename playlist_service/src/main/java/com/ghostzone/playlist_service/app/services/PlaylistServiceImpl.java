@@ -9,7 +9,7 @@ import com.ghostzone.playlist_service.domain.models.PlaylistResponse;
 //import com.ghostzone.playlist_service.domain.entity.SongRequest;
 
 import com.ghostzone.playlist_service.domain.models.SongGetByIdResponse;
-import com.ghostzone.playlist_service.infraestructure.repository.PlaylistRepository;
+import com.ghostzone.playlist_service.infrastructure.PlaylistRepository;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;

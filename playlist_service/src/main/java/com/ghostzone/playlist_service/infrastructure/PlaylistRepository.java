@@ -1,4 +1,4 @@
-package com.ghostzone.playlist_service.infraestructure.repository;
+package com.ghostzone.playlist_service.infrastructure;
 
 import com.ghostzone.playlist_service.domain.entity.Playlist;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -41,9 +41,4 @@ public class AlbumController {
 
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
     }
-
-    @PutMapping("/{id}")
-    public void updateSongCover(@PathVariable("id") long songId, @RequestBody UpdateCoverRequest updateCoverRequest) {
-        albumService.updateSongCover(updateCoverRequest);
-    }
 }

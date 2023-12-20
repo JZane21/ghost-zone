@@ -47,8 +47,8 @@ public class SongController {
     }
 
     @GetMapping("/{id}/file")
-    public ResponseEntity<SongListenResponse> listenToSong(@PathVariable("id") long songId){
-        SongListenResponse songResponse = songService.listenToSong(songId);
+    public ResponseEntity<SongListenResponse> listenToSong(@PathVariable("id") long songId, @RequestParam(name ="userId", required = false) long userId){
+        SongListenResponse songResponse = songService.listenToSong(songId, userId);
         return new ResponseEntity<>(songResponse, HttpStatus.OK);
     }
 

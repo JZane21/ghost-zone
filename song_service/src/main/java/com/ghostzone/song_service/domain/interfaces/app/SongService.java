@@ -14,7 +14,7 @@ public interface SongService {
     List<SongGetByIdResponse> getAllInternal();
     List<SongGetResponse> search(String search);
 
-    SongListenResponse listenToSong(long songId);
+    SongListenResponse listenToSong(long songId, long userId);
 
     void updateSongCover(UpdateCoverRequest updateCoverRequest, long songId);
 

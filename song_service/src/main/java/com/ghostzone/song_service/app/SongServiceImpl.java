@@ -4,6 +4,7 @@ import com.ghostzone.song_service.domain.entity.Song;
 import com.ghostzone.song_service.domain.interfaces.app.SongService;
 import com.ghostzone.song_service.domain.interfaces.infrastructure.SongRepository;
 import com.ghostzone.song_service.domain.model.*;
+import com.ghostzone.song_service.infrastructure.services.HistoryService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 @Service
 @Log4j2
 public class SongServiceImpl implements SongService {
+
+    @Autowired
+    private HistoryService historyService;
 
     @Autowired
     private SongRepository songRepository;
@@ -95,7 +99,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongListenResponse listenToSong(long songId) {
+    public SongListenResponse listenToSong(long songId, long userId) {
         log.info("Listening to Song");
         Song song = songRepository.findById(songId)
                 .orElseThrow(
@@ -104,6 +108,14 @@ public class SongServiceImpl implements SongService {
 
         SongListenResponse songResponse = new SongListenResponse();
         BeanUtils.copyProperties(song, songResponse);
+
+        HistoryRequest historyRequest = HistoryRequest.builder()
+                .userId(userId)
+                .songId(songId)
+                .build();
+
+        log.info("Posting to history");
+        historyService.addHistory(historyRequest);
 
         return songResponse;
     }

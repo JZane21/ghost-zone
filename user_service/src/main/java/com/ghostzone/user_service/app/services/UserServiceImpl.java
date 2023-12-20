@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
         log.info("User gotten");
 
         return UserDTO.builder()
+                .id(userEntity.getId())
                 .username(userEntity.getUsername())
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())

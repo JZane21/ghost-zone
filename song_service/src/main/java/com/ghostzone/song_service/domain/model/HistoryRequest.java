@@ -1,4 +1,4 @@
-package com.ghostzone.history_service.domain.model;
+package com.ghostzone.song_service.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
